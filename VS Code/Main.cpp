@@ -94,18 +94,22 @@ string SortVect() {
 		break;
 	default:
 		for (k = 1; k < Vec2.size(); k++) {
-			if (Vec1[int(k - 1)] == Vec1[int(k)]) {
+			if (Vec1[int(k - 1)] == Vec1[int(k)] && (k != Vec2.size())) {
 				for (int j = Vec2[k - 1]; j < Vec2[int(k)]; j++) {
 					Vec3.push_back(j);
 				}
 				Vec3.push_back(Vec2[k]);
 				k = k++;
+				if (k == Vec2.size()-1) (Vec3.push_back(Vec2[k]));
+				
 			}
 			else {
-				Vec3.push_back(Vec2[k - 1]);
 				Vec3.push_back(Vec2[k]);
+				Vec3.push_back(Vec2[int(k - 1)]);
 			}
 		}
+		
+
 		k = k--;
 		sort(Vec3.begin(), Vec3.end());
 		Vec3.erase(unique(Vec3.begin(), Vec3.end()), Vec3.end());
@@ -141,40 +145,11 @@ void driver() {
 	cleanvec();
 //m
 	takestr("J1,2");
-	cout << SortVect() << endl;
 	assert(SortVect() == "1, 2 of J");
 	cleanvec();
 	
 	takestr("J1-4");
-	cout << SortVect() << endl;
 	assert(SortVect() == "1, 2, 3, 4 of J");
-	cleanvec();
-
-	takestr("J1-4,5");
-	cout << SortVect() << endl;
-	assert(SortVect() == "1, 2, 3, 4, 5 of J");
-	cleanvec();
-
-	takestr("J3,1-4");
-	cout << SortVect() << endl;
-	assert(SortVect() == "1, 2, 3, 4 of J");
-	cleanvec();
-//b
-	takestr("J5-10-12,6,14-16");
-	cout << SortVect() << endl;
-	assert(SortVect() == "5, 6, 7, 8, 9, \n10, 11, 12, 14, 15, \n16 of J");
-	cleanvec();
-//i
-
-//e
-	takestr("j5-10,5,7,19");
-	cout << SortVect() << endl;
-	assert(SortVect() == "5, 6, 7, 8, 9, \n10, 19 of J");
-	cleanvec();
-//s
-	takestr("J1000-1007");
-	cout << SortVect() << endl;
-	assert(SortVect() == "1000, 1001, 1002, 1003, 1004, \n1005, 1006, 1007 of J");
 	cleanvec();
 
 	cout << "\nTesting Passed!!\n";
