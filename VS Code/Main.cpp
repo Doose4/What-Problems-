@@ -7,14 +7,11 @@
 using namespace std;
 
 vector<int> Vec1{}, Vec2{}, Vec3{}; // Vectooooorrrrssss
+string chap = "";
 
-int main() {
-	string s = "", chap = "";
-	int i = 0;
+void takestr(string s) {
 	bool ky = 0, ky2 = 0;
-
-	cout << "Please enter the assignment: ";
-	getline(cin, s);
+	int i = 0;
 
 	for (char& c : s) {
 		if (!isdigit(c)) {
@@ -31,7 +28,7 @@ int main() {
 				c = ' ';
 				break;
 			default:
-				chap = c;
+				chap = toupper(c);
 				c = ' ';
 				break;
 			}
@@ -52,34 +49,20 @@ int main() {
 			else {
 				ky2 = 0;
 			}
-
-
 		}
 	}
 
 	int v;
 	stringstream ss(s);
 	while (ss >> v) Vec2.push_back(v);;
+}
 
-	for (int t = 0; t < Vec1.size(); t++)
-	{
-		cout << Vec1[t];
-	}
-	cout << endl;
-
-	for (int t = 0; t < Vec2.size(); t++)
-	{
-		cout << Vec2[t];
-	}
-	cout << endl;
-
-	cout << "The problems are: ";
+void SortVect() {
 	int k = 0;
-
 	switch (Vec2.size()) {
 	case 0:
 		cout << "\nYou did not enter a proper input...\n";
-		return 0;
+		return;
 		break;
 	case 1:
 		Vec3.push_back(Vec2[0]);
@@ -94,8 +77,8 @@ int main() {
 			for (k = 0; k < Vec3.size() - 1; k++) {
 				cout << Vec3[k] << ", ";
 			}
-			
-			
+
+
 		}
 		else {
 			Vec3.push_back(Vec2[k]);
@@ -118,6 +101,7 @@ int main() {
 			}
 			else {
 				Vec3.push_back(Vec2[k - 1]);
+				Vec3.push_back(Vec2[k]);
 			}
 		}
 		k = k--;
@@ -130,5 +114,28 @@ int main() {
 	}
 
 	cout << Vec3[k] << " of " << chap;
+}
+
+void driver() {
+	cout << "wow, test";
+}
+
+int main() {
+	string str = "";
+
+	cout << "Please enter the assignment: ";
+	getline(cin, str);
+
+	if (str == "test") {
+		driver();
+	}
+	else {
+		takestr(str);
+
+		cout << "The problems are: ";
+
+		SortVect();
+	}
+	
 	return 0;
 }
