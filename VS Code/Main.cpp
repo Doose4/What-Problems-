@@ -1,9 +1,10 @@
 #include <iostream>
-#include <string>
+//#include <string>
 #include <vector>
-#include <cctype> 
+//#include <cctype> 
 #include <sstream>
 #include <algorithm>
+#include <cassert>
 using namespace std;
 
 vector<int> Vec1{}, Vec2{}, Vec3{}; // Vectooooorrrrssss
@@ -57,12 +58,12 @@ void takestr(string s) {
 	while (ss >> v) Vec2.push_back(v);;
 }
 
-void SortVect() {
+string SortVect() {
 	int k = 0;
+	string outpt = "";
 	switch (Vec2.size()) {
 	case 0:
-		cout << "\nYou did not enter a proper input...\n";
-		return;
+		return "\nYou did not enter a proper input...\n";
 		break;
 	case 1:
 		Vec3.push_back(Vec2[0]);
@@ -75,7 +76,7 @@ void SortVect() {
 			sort(Vec3.begin(), Vec3.end());
 			Vec3.erase(unique(Vec3.begin(), Vec3.end()), Vec3.end());
 			for (k = 0; k < Vec3.size() - 1; k++) {
-				cout << Vec3[k] << ", ";
+				outpt = outpt + to_string(Vec3[k]) + ", ";
 			}
 
 
@@ -86,7 +87,8 @@ void SortVect() {
 			sort(Vec3.begin(), Vec3.end());
 			Vec3.erase(unique(Vec3.begin(), Vec3.end()), Vec3.end());
 			for (k = 0; k < Vec3.size() - 1; k++) {
-				cout << Vec3[k] << ", ";
+				//cout << Vec3[k] << ", ";
+				outpt = outpt + to_string(Vec3[k]) + ", ";
 			}
 		}
 		break;
@@ -108,22 +110,80 @@ void SortVect() {
 		sort(Vec3.begin(), Vec3.end());
 		Vec3.erase(unique(Vec3.begin(), Vec3.end()), Vec3.end());
 		for (k = 0; k < Vec3.size() - 1; k++) {
-			cout << Vec3[k] << ", ";
+			if (k % 5 == 0) (outpt = outpt + "\n") ;
+			//cout << Vec3[k] << ", ";
+			outpt = outpt + to_string(Vec3[k]) + ", ";
 		}
 		break;
 	}
 
-	cout << Vec3[k] << " of " << chap;
+	//cout << Vec3[k] << " of " << chap;
+	outpt = outpt + to_string(Vec3[k]) + " of " + chap;
+	return outpt;
+}
+
+void cleanvec() {
+	Vec1.clear();
+	Vec2.clear();
+	Vec3.clear();
 }
 
 void driver() {
-	cout << "wow, test";
+	cout << "Testing Start...\n";
+
+//z
+	takestr("J");
+	assert(SortVect() == "\nYou did not enter a proper input...\n");
+	cleanvec();
+//o
+	takestr("J1");
+	assert(SortVect() == "1 of J");
+	cleanvec();
+//m
+	takestr("J1,2");
+	cout << SortVect() << endl;
+	assert(SortVect() == "1, 2 of J");
+	cleanvec();
+	
+	takestr("J1-4");
+	cout << SortVect() << endl;
+	assert(SortVect() == "1, 2, 3, 4 of J");
+	cleanvec();
+
+	takestr("J1-4,5");
+	cout << SortVect() << endl;
+	assert(SortVect() == "1, 2, 3, 4, 5 of J");
+	cleanvec();
+
+	takestr("J3,1-4");
+	cout << SortVect() << endl;
+	assert(SortVect() == "1, 2, 3, 4 of J");
+	cleanvec();
+//b
+	takestr("J5-10-12,6,14-16");
+	cout << SortVect() << endl;
+	assert(SortVect() == "5, 6, 7, 8, 9, \n10, 11, 12, 14, 15, \n16 of J");
+	cleanvec();
+//i
+
+//e
+	takestr("j5-10,5,7,19");
+	cout << SortVect() << endl;
+	assert(SortVect() == "5, 6, 7, 8, 9, \n10, 19 of J");
+	cleanvec();
+//s
+	takestr("J1000-1007");
+	cout << SortVect() << endl;
+	assert(SortVect() == "1000, 1001, 1002, 1003, 1004, \n1005, 1006, 1007 of J");
+	cleanvec();
+
+	cout << "\nTesting Passed!!\n";
 }
 
 int main() {
 	string str = "";
 
-	cout << "Please enter the assignment: ";
+	cout << "Please enter the assignment: \n";
 	getline(cin, str);
 
 	if (str == "test") {
@@ -134,8 +194,8 @@ int main() {
 
 		cout << "The problems are: ";
 
-		SortVect();
+		cout << SortVect();
 	}
-	
+
 	return 0;
 }
