@@ -1,18 +1,18 @@
 #include <iostream>
-//#include <string>
 #include <vector>
-//#include <cctype> 
 #include <sstream>
 #include <algorithm>
 #include <cassert>
 using namespace std;
 
-vector<int> Vec1{}, Vec2{}, Vec3{}; // Vectooooorrrrssss
+//global variables
+vector<int> Vec1{}, Vec2{}, Vec3{}; 
 string chap = "";
 
 void takestr(string s) {
 	bool ky = 0, ky2 = 0;
 	int i = 0;
+//fills out vector with numbers listed
 
 	for (char& c : s) {
 		if (!isdigit(c)) {
@@ -61,6 +61,7 @@ void takestr(string s) {
 string SortVect() {
 	int k = 0;
 	string outpt = "";
+//sorts out vector
 	switch (Vec2.size()) {
 	case 0:
 		return "\nYou did not enter a proper input...\n";
@@ -78,8 +79,6 @@ string SortVect() {
 			for (k = 0; k < Vec3.size() - 1; k++) {
 				outpt = outpt + to_string(Vec3[k]) + ", ";
 			}
-
-
 		}
 		else {
 			Vec3.push_back(Vec2[k]);
@@ -87,7 +86,6 @@ string SortVect() {
 			sort(Vec3.begin(), Vec3.end());
 			Vec3.erase(unique(Vec3.begin(), Vec3.end()), Vec3.end());
 			for (k = 0; k < Vec3.size() - 1; k++) {
-				//cout << Vec3[k] << ", ";
 				outpt = outpt + to_string(Vec3[k]) + ", ";
 			}
 		}
@@ -101,38 +99,36 @@ string SortVect() {
 				Vec3.push_back(Vec2[k]);
 				k = k++;
 				if (k == Vec2.size()-1) (Vec3.push_back(Vec2[k]));
-				
 			}
 			else {
 				Vec3.push_back(Vec2[k]);
 				Vec3.push_back(Vec2[int(k - 1)]);
 			}
 		}
-		
 
+	//creates the string
 		k = k--;
 		sort(Vec3.begin(), Vec3.end());
 		Vec3.erase(unique(Vec3.begin(), Vec3.end()), Vec3.end());
 		for (k = 0; k < Vec3.size() - 1; k++) {
-			if (k % 5 == 0) (outpt = outpt + "\n") ;
-			//cout << Vec3[k] << ", ";
+			//if (int(k % 6) == 0) (outpt = outpt + "\n");
 			outpt = outpt + to_string(Vec3[k]) + ", ";
 		}
 		break;
 	}
-
-	//cout << Vec3[k] << " of " << chap;
 	outpt = outpt + to_string(Vec3[k]) + " of " + chap;
 	return outpt;
 }
 
 void cleanvec() {
+	//cleans the vectors for new outputs
 	Vec1.clear();
 	Vec2.clear();
 	Vec3.clear();
 }
 
 void driver() {
+//runs tests for different scenerios
 	cout << "Testing Start...\n";
 
 //z
@@ -150,6 +146,22 @@ void driver() {
 	
 	takestr("J1-4");
 	assert(SortVect() == "1, 2, 3, 4 of J");
+	cleanvec();
+//b
+	takestr("J1-4,3");
+	assert(SortVect() == "1, 2, 3, 4 of J");
+	cleanvec();
+//i
+	takestr("J1-4,9-12");
+	assert(SortVect() == "1, 2, 3, 4, 9, 10, 11, 12 of J");
+	cleanvec();
+//e
+	takestr("J1-4,6");
+	assert(SortVect() == "1, 2, 3, 4, 6 of J");
+	cleanvec();
+//s
+	takestr("J1-4,14,9-12,8-10");
+	assert(SortVect() == "1, 2, 3, 4, 8, 9, 10, 11, 12, 14 of J");
 	cleanvec();
 
 	cout << "\nTesting Passed!!\n";
