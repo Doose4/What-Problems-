@@ -25,6 +25,14 @@ void takestr(string s) {
 				i = i++;
 				c = ' ';
 				break;
+			case ';':
+				i = i++;
+				c = ' ';
+				break;
+			case '.':
+				i = i++;
+				c = ' ';
+				break;
 			case ' ':
 				c = ' ';
 				break;
