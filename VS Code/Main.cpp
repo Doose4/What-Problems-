@@ -22,15 +22,15 @@ void takestr(string s) {
 				c = ' ';
 				break;
 			case ',':
-				i = i++;
+				i++;
 				c = ' ';
 				break;
 			case ';':
-				i = i++;
+				i++;
 				c = ' ';
 				break;
 			case '.':
-				i = i++;
+				i++;
 				c = ' ';
 				break;
 			case ' ':
@@ -105,7 +105,7 @@ string SortVect() {
 					Vec3.push_back(j);
 				}
 				Vec3.push_back(Vec2[k]);
-				k = k++;
+				k=k++;
 				if (k == Vec2.size()-1) (Vec3.push_back(Vec2[k]));
 			}
 			else {
@@ -115,7 +115,7 @@ string SortVect() {
 		}
 
 	//creates the string
-		k = k--;
+		k--;
 		sort(Vec3.begin(), Vec3.end());
 		Vec3.erase(unique(Vec3.begin(), Vec3.end()), Vec3.end());
 		for (k = 0; k < Vec3.size() - 1; k++) {
